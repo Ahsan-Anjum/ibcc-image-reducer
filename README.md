@@ -1,6 +1,6 @@
 # IBCC Image Size Reducer
 
-A web tool to reduce image file sizes to approximately 180KB while maintaining quality.
+A web tool to reduce image file sizes to under 200KB while maintaining quality.
 
 ## Features
 - Drag and drop image upload
