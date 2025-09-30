@@ -1,13 +1,750 @@
-<!-- Replace your current header ad with this -->
-<div class="ad-container">
-    <script type="text/javascript">
-        atOptions = {
-            'key' : '6f40fcf9f69590248360e5c453caec8a',
-            'format' : 'iframe',
-            'height' : 250,  // Changed to 250 for better mobile display
-            'width' : 300,   // Changed to 300 for mobile
-            'params' : {}
-        };
-    </script>
-    <script type="text/javascript" src="//www.highperformanceformat.com/6f40fcf9f69590248360e5c453caec8a/invoke.js"></script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IBCC Image Size Reducer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f9f0 0%, #e8f5e9 100%);
+            color: #2e7d32;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .header {
+            background: #2e7d32;
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .container {
+            width: 95%;
+            max-width: 1000px;
+            margin: 0 auto;
+            flex: 1;
+            padding: 0 10px;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .ibcc-logo {
+            height: 60px;
+            width: auto;
+            border-radius: 5px;
+        }
+        
+        .logo-text {
+            text-align: center;
+        }
+        
+        .logo-text h1 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .logo-text p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .main-content {
+            padding: 30px 0;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(46, 125, 50, 0.1);
+            padding: 20px;
+            margin-bottom: 25px;
+            border-left: 5px solid #4caf50;
+        }
+        
+        .card-title {
+            color: #2e7d32;
+            font-size: 22px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e8f5e9;
+            text-align: center;
+        }
+        
+        .upload-area {
+            border: 2px dashed #4caf50;
+            border-radius: 8px;
+            padding: 30px 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            background-color: #f1f8e9;
+            margin-bottom: 20px;
+        }
+        
+        .upload-area:hover {
+            background-color: #e8f5e9;
+            border-color: #2e7d32;
+        }
+        
+        .upload-area.highlight {
+            background-color: #c8e6c9;
+            border-color: #2e7d32;
+        }
+        
+        .upload-icon {
+            font-size: 40px;
+            color: #4caf50;
+            margin-bottom: 10px;
+        }
+        
+        .upload-text {
+            font-size: 18px;
+            color: #388e3c;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+        
+        .file-input {
+            display: none;
+        }
+        
+        .browse-btn {
+            background: linear-gradient(to right, #2e7d32, #4caf50);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            margin-top: 10px;
+            font-weight: 600;
+            display: inline-block;
+        }
+        
+        .browse-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(46, 125, 50, 0.3);
+        }
+        
+        .preview-container {
+            display: none;
+            margin-top: 25px;
+        }
+        
+        .preview-title {
+            font-size: 20px;
+            color: #2e7d32;
+            margin-bottom: 15px;
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .image-comparison {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .image-box {
+            flex: 1;
+            min-width: 100%;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        
+        .image-label {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #388e3c;
+            font-size: 16px;
+        }
+        
+        .image-preview {
+            max-width: 100%;
+            max-height: 250px;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            border: 2px solid #e8f5e9;
+        }
+        
+        .file-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            background-color: #f1f8e9;
+            padding: 15px;
+            border-radius: 8px;
+            flex-wrap: wrap;
+            border: 1px solid #c8e6c9;
+        }
+        
+        .file-info div {
+            text-align: center;
+            flex: 1;
+            min-width: 100%;
+            margin: 5px 0;
+        }
+        
+        .file-info .label {
+            font-size: 14px;
+            color: #558b2f;
+            margin-bottom: 5px;
+        }
+        
+        .file-info .value {
+            font-size: 16px;
+            font-weight: 600;
+            color: #2e7d32;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .download-btn {
+            background: linear-gradient(to right, #2e7d32, #4caf50);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            flex: 1;
+            min-width: 200px;
+            justify-content: center;
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(46, 125, 50, 0.3);
+        }
+        
+        .reset-btn {
+            background: linear-gradient(to right, #d32f2f, #f44336);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            flex: 1;
+            min-width: 200px;
+            justify-content: center;
+        }
+        
+        .reset-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(211, 47, 47, 0.3);
+        }
+        
+        .progress-container {
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 10px;
+            border: 1px solid #c8e6c9;
+        }
+        
+        .progress {
+            height: 100%;
+            background: linear-gradient(to right, #2e7d32, #4caf50);
+            width: 0%;
+            transition: width 0.3s;
+        }
+        
+        .status {
+            font-size: 14px;
+            color: #558b2f;
+            text-align: center;
+            font-weight: 500;
+        }
+        
+        .instructions {
+            background: #f1f8e9;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 25px;
+            border: 1px solid #c8e6c9;
+        }
+        
+        .instructions h3 {
+            color: #2e7d32;
+            margin-bottom: 10px;
+            font-size: 18px;
+            text-align: center;
+        }
+        
+        .instructions ol {
+            padding-left: 20px;
+        }
+        
+        .instructions li {
+            margin-bottom: 8px;
+            color: #558b2f;
+        }
+        
+        .instructions p {
+            margin-top: 10px;
+            color: #558b2f;
+            font-style: italic;
+            text-align: center;
+        }
+        
+        .footer {
+            background: #2e7d32;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .footer p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+        
+        /* Mobile-specific styles */
+        @media (min-width: 480px) {
+            .image-box {
+                min-width: calc(50% - 10px);
+            }
+            
+            .file-info div {
+                min-width: calc(33.33% - 10px);
+            }
+        }
+        
+        @media (min-width: 768px) {
+            .container {
+                width: 90%;
+                padding: 0;
+            }
+            
+            .ibcc-logo {
+                height: 70px;
+            }
+            
+            .logo-text h1 {
+                font-size: 28px;
+            }
+            
+            .logo-text p {
+                font-size: 16px;
+            }
+            
+            .card {
+                padding: 30px;
+            }
+            
+            .upload-area {
+                padding: 40px 20px;
+            }
+            
+            .upload-icon {
+                font-size: 48px;
+            }
+            
+            .upload-text {
+                font-size: 20px;
+            }
+            
+            .image-comparison {
+                gap: 20px;
+            }
+            
+            .file-info div {
+                min-width: auto;
+                flex: 1;
+            }
+            
+            .download-btn, .reset-btn {
+                flex: initial;
+                min-width: auto;
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .container {
+                width: 95%;
+                max-width: 1200px;
+            }
+            
+            .image-comparison {
+                gap: 30px;
+            }
+        }
+        
+        /* Touch-friendly improvements */
+        button, .upload-area {
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        button:active, .upload-area:active {
+            transform: scale(0.98);
+        }
+        
+        /* Prevent zoom on input focus for iOS */
+        @media screen and (-webkit-min-device-pixel-ratio:0) {
+            select:focus, textarea:focus, input:focus {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+           <div class="logo-container">
+    <!-- Use the RAW GitHub URL -->
+    <img src="https://raw.githubusercontent.com/Ahsan-Anjum/ibcc-image-reducer/main/assets/images/ibcc-logo.png" alt="IBCC Logo" class="ibcc-logo">
+    
+    <div class="logo-text">
+        <h1>IBCC Image Size Reducer</h1>
+        <p>Reduce your image size to under 200KB</p>
+    </div>
 </div>
+        </div>
+    </header>
+    
+    <main class="main-content">
+        <div class="container">
+            <div class="card">
+                <h2 class="card-title">Image Size Reduction Tool</h2>
+                <p style="color: #558b2f; margin-bottom: 20px; text-align: center;">Upload an image and we'll automatically reduce its file size to under 200KB while maintaining good quality.</p>
+                
+                <div class="upload-area" id="uploadArea">
+                    <div class="upload-icon">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                    </div>
+                    <p class="upload-text">Drag & drop your image here</p>
+                    <p style="color: #558b2f;">or</p>
+                    <button class="browse-btn"><i class="fas fa-folder-open"></i> Browse Files</button>
+                    <input type="file" id="fileInput" class="file-input" accept="image/*">
+                </div>
+                
+                <div class="progress-container" id="progressContainer">
+                    <div class="progress-bar">
+                        <div class="progress" id="progressBar"></div>
+                    </div>
+                    <div class="status" id="statusText">Processing image...</div>
+                </div>
+                
+                <div class="preview-container" id="previewContainer">
+                    <h3 class="preview-title">Image Processing Results</h3>
+                    
+                    <div class="image-comparison">
+                        <div class="image-box">
+                            <div class="image-label">Original Image</div>
+                            <img id="originalPreview" class="image-preview" src="" alt="Original Image">
+                        </div>
+                        <div class="image-box">
+                            <div class="image-label">Reduced Image</div>
+                            <img id="imagePreview" class="image-preview" src="" alt="Processed Image">
+                        </div>
+                    </div>
+                    
+                    <div class="file-info">
+                        <div>
+                            <div class="label">Original Size</div>
+                            <div class="value" id="originalSize">-</div>
+                        </div>
+                        <div>
+                            <div class="label">New Size</div>
+                            <div class="value" id="newSize">-</div>
+                        </div>
+                        <div>
+                            <div class="label">Reduction</div>
+                            <div class="value" id="reduction">-</div>
+                        </div>
+                    </div>
+                    
+                    <div class="controls">
+                        <button class="download-btn" id="downloadBtn">
+                            <i class="fas fa-download"></i> Download Image
+                        </button>
+                        <button class="reset-btn" id="resetBtn">
+                            <i class="fas fa-redo"></i> Process Another
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="instructions">
+                <h3>How to Use This Tool</h3>
+                <ol>
+                    <li>Click the "Browse Files" button or drag and drop your image into the upload area</li>
+                    <li>Wait for the image to be processed (this happens entirely in your browser)</li>
+                    <li>Preview the original and reduced images side by side</li>
+                    <li>Check the file size reduction information</li>
+                    <li>Click "Download Image" to save the reduced version</li>
+                </ol>
+                <p><strong>Note:</strong> All image processing happens locally in your browser. Your images are never uploaded to any server.</p>
+            </div>
+        </div>
+    </main>
+    
+    <footer class="footer">
+        <div class="container">
+            <p>IBCC Image Size Reducer Tool</p>
+            <p>© 2024 Inter Board Committee of Chairmen. All rights reserved.</p>
+            <p>This tool is provided for educational and convenience purposes.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const uploadArea = document.getElementById('uploadArea');
+            const fileInput = document.getElementById('fileInput');
+            const previewContainer = document.getElementById('previewContainer');
+            const originalPreview = document.getElementById('originalPreview');
+            const imagePreview = document.getElementById('imagePreview');
+            const originalSize = document.getElementById('originalSize');
+            const newSize = document.getElementById('newSize');
+            const reduction = document.getElementById('reduction');
+            const downloadBtn = document.getElementById('downloadBtn');
+            const resetBtn = document.getElementById('resetBtn');
+            const progressContainer = document.getElementById('progressContainer');
+            const progressBar = document.getElementById('progressBar');
+            const statusText = document.getElementById('statusText');
+            
+            let processedBlob = null;
+            let originalFileSize = 0;
+            let originalImageUrl = null;
+            
+            // Event listeners for drag and drop
+            uploadArea.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                uploadArea.classList.add('highlight');
+            });
+            
+            uploadArea.addEventListener('dragleave', function() {
+                uploadArea.classList.remove('highlight');
+            });
+            
+            uploadArea.addEventListener('drop', function(e) {
+                e.preventDefault();
+                uploadArea.classList.remove('highlight');
+                
+                if (e.dataTransfer.files.length) {
+                    handleFile(e.dataTransfer.files[0]);
+                }
+            });
+            
+            // Click to upload
+            uploadArea.addEventListener('click', function() {
+                fileInput.click();
+            });
+            
+            fileInput.addEventListener('change', function() {
+                if (fileInput.files.length) {
+                    handleFile(fileInput.files[0]);
+                }
+            });
+            
+            // Download button
+            downloadBtn.addEventListener('click', function() {
+                if (processedBlob) {
+                    const url = URL.createObjectURL(processedBlob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'ibcc-reduced-image.jpg';
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                }
+            });
+            
+            // Reset button
+            resetBtn.addEventListener('click', function() {
+                previewContainer.style.display = 'none';
+                uploadArea.style.display = 'block';
+                fileInput.value = '';
+                processedBlob = null;
+                
+                // Clean up object URLs
+                if (originalImageUrl) {
+                    URL.revokeObjectURL(originalImageUrl);
+                    originalImageUrl = null;
+                }
+            });
+            
+            // File handling function
+            function handleFile(file) {
+                if (!file.type.match('image.*')) {
+                    alert('Please select an image file (JPEG, PNG, etc.).');
+                    return;
+                }
+                
+                // Check if file is too large (>10MB)
+                if (file.size > 10 * 1024 * 1024) {
+                    alert('Please select an image smaller than 10MB for optimal performance.');
+                    return;
+                }
+                
+                originalFileSize = file.size;
+                const fileSizeKB = (originalFileSize / 1024).toFixed(2);
+                originalSize.textContent = `${fileSizeKB} KB`;
+                
+                uploadArea.style.display = 'none';
+                progressContainer.style.display = 'block';
+                
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    // Store the original image for preview
+                    originalImageUrl = e.target.result;
+                    originalPreview.src = originalImageUrl;
+                    
+                    const img = new Image();
+                    
+                    img.onload = function() {
+                        // Start processing with progress simulation
+                        simulateProgress();
+                        
+                        setTimeout(() => {
+                            processImage(img, file.type);
+                        }, 800);
+                    };
+                    
+                    img.src = e.target.result;
+                };
+                
+                reader.readAsDataURL(file);
+            }
+            
+            // Process the image to reduce size
+            function processImage(img, mimeType) {
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                
+                // Calculate new dimensions while maintaining aspect ratio
+                let width = img.width;
+                let height = img.height;
+                const maxDimension = 1200; // Maximum dimension to prevent too large images
+                
+                if (width > maxDimension || height > maxDimension) {
+                    if (width > height) {
+                        height = Math.round((height * maxDimension) / width);
+                        width = maxDimension;
+                    } else {
+                        width = Math.round((width * maxDimension) / height);
+                        height = maxDimension;
+                    }
+                }
+                
+                canvas.width = width;
+                canvas.height = height;
+                
+                // Draw image on canvas
+                ctx.drawImage(img, 0, 0, width, height);
+                
+                // Adjust quality to reach approximately 180KB
+                let quality = 0.85;
+                let targetSize = 180 * 1024; // 180KB in bytes
+                
+                // Function to try compression with different quality levels
+                const tryCompression = (q, callback) => {
+                    canvas.toBlob(function(blob) {
+                        callback(blob);
+                    }, 'image/jpeg', q);
+                };
+                
+                // Binary search for optimal quality
+                const findOptimalQuality = (minQ, maxQ, callback) => {
+                    if (maxQ - minQ < 0.05) {
+                        tryCompression(minQ, callback);
+                        return;
+                    }
+                    
+                    const midQ = (minQ + maxQ) / 2;
+                    
+                    tryCompression(midQ, function(blob) {
+                        if (blob.size > targetSize) {
+                            findOptimalQuality(minQ, midQ, callback);
+                        } else {
+                            findOptimalQuality(midQ, maxQ, callback);
+                        }
+                    });
+                };
+                
+                // Start with a reasonable quality range
+                findOptimalQuality(0.3, 0.9, function(resultBlob) {
+                    processedBlob = resultBlob;
+                    
+                    // Update UI with results
+                    const newFileSizeKB = (processedBlob.size / 1024).toFixed(2);
+                    const reductionPercent = ((1 - processedBlob.size / originalFileSize) * 100).toFixed(1);
+                    
+                    newSize.textContent = `${newFileSizeKB} KB`;
+                    reduction.textContent = `${reductionPercent}%`;
+                    
+                    // Show preview
+                    imagePreview.src = URL.createObjectURL(processedBlob);
+                    
+                    // Hide progress, show preview
+                    progressContainer.style.display = 'none';
+                    previewContainer.style.display = 'block';
+                });
+            }
+            
+            // Simulate progress for better UX
+            function simulateProgress() {
+                let width = 0;
+                const interval = setInterval(() => {
+                    if (width >= 90) {
+                        clearInterval(interval);
+                        progressBar.style.width = '100%';
+                        statusText.textContent = 'Finalizing...';
+                    } else {
+                        width += 10;
+                        progressBar.style.width = width + '%';
+                    }
+                }, 150);
+            }
+        });
+    </script>
+</body>
+</html>
